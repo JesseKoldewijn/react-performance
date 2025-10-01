@@ -18,14 +18,10 @@ export function PostItem({ post, onDelete }: PostItemProps) {
                 {post.title}
               </h3>
               {post.isPending && (
-                <span className="text-xs text-slate-500 dark:text-slate-400 italic">
-                  Saving...
-                </span>
+                <span className="text-xs text-slate-500 italic dark:text-slate-400">Saving...</span>
               )}
             </div>
-            <p className="text-sm text-slate-600 dark:text-slate-400">
-              {post.body}
-            </p>
+            <p className="text-sm text-slate-600 dark:text-slate-400">{post.body}</p>
             <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-500">
               <span>Post #{post.id}</span>
               <span>•</span>
