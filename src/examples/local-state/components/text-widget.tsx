@@ -16,9 +16,7 @@ export function TextWidgetWrong({ text, onTextChange }: TextWidgetWrongProps) {
 
   return (
     <Card className="p-6">
-      <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-100">
-        Text Widget
-      </h3>
+      <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-100">Text Widget</h3>
       <p className="mb-4 text-sm text-slate-600 dark:text-slate-400">
         Type something. Notice this re-renders when ANY widget updates because state is in the parent.
       </p>
@@ -32,8 +30,12 @@ export function TextWidgetWrong({ text, onTextChange }: TextWidgetWrongProps) {
       />
 
       <div className="mt-2 flex justify-between text-sm text-slate-600 dark:text-slate-400">
-        <span>{wordCount} {wordCount === 1 ? 'word' : 'words'}</span>
-        <span>{charCount} {charCount === 1 ? 'character' : 'characters'}</span>
+        <span>
+          {wordCount} {wordCount === 1 ? 'word' : 'words'}
+        </span>
+        <span>
+          {charCount} {charCount === 1 ? 'character' : 'characters'}
+        </span>
       </div>
 
       <div className="mt-4">
