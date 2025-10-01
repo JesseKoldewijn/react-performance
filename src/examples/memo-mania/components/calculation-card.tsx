@@ -1,8 +1,13 @@
+import { memo, useMemo } from 'react';
 import { Button } from '$components/button';
 import { Input } from '$components/input';
 import { Card } from '$components/card';
 import type { Calculation } from '../types';
-import { calculate, getCalculationLabel, getCalculationDescription } from '../utilities/expensive-calculations';
+import {
+  calculate,
+  getCalculationLabel,
+  getCalculationDescription,
+} from '../utilities/expensive-calculations';
 
 interface CalculationCardProps {
   calculation: Calculation;
@@ -10,12 +15,19 @@ interface CalculationCardProps {
   onDelete: (id: string) => void;
 }
 
-export function CalculationCard({ calculation, onUpdate, onDelete }: CalculationCardProps) {
+export const CalculationCard = memo(function CalculationCard({
+  calculation,
+  onUpdate,
+  onDelete,
+}: CalculationCardProps) {
   // This expensive calculation runs on EVERY render of ANY card
-  const result = calculate(calculation.type, calculation.input);
+  const result = useMemo(() => calculate(calculation.type, calculation.input), [calculation]);
 
-  const label = getCalculationLabel(calculation.type);
-  const description = getCalculationDescription(calculation.type);
+  const label = useMemo(() => getCalculationLabel(calculation.type), [calculation.type]);
+  const description = useMemo(
+    () => getCalculationDescription(calculation.type),
+    [calculation.type],
+  );
 
   return (
     <Card className="p-6">
@@ -25,11 +37,7 @@ export function CalculationCard({ calculation, onUpdate, onDelete }: Calculation
             <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{label}</h3>
             <p className="text-sm text-slate-600 dark:text-slate-400">{description}</p>
           </div>
-          <Button
-            size="small"
-            variant="danger"
-            onClick={() => onDelete(calculation.id)}
-          >
+          <Button size="small" variant="danger" onClick={() => onDelete(calculation.id)}>
             Delete
           </Button>
         </div>
