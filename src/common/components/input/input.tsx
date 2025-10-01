@@ -1,5 +1,5 @@
 import { type VariantProps } from 'class-variance-authority';
-import { type ComponentPropsWithoutRef, forwardRef, useId, memo, useMemo } from 'react';
+import React, { type ComponentPropsWithoutRef, forwardRef, useId, memo, useMemo } from 'react';
 import { inputVariants } from './input.classes';
 import { cn } from '../../utilities/cn';
 import { labelStyles, srOnlyStyles } from '../../utilities/styles';
@@ -7,7 +7,7 @@ import { labelStyles, srOnlyStyles } from '../../utilities/styles';
 export interface InputProps
   extends ComponentPropsWithoutRef<'input'>,
     VariantProps<typeof inputVariants> {
-  label?: string;
+  label?: React.ReactNode;
   hideLabel?: boolean;
   'data-testid'?: string;
 }
@@ -48,7 +48,6 @@ export const Input = memo(
               ref={ref}
               id={inputId}
               className={inputClasses}
-              aria-label={hideLabel ? label : undefined}
               required={required}
               disabled={disabled}
               data-testid={testId}
