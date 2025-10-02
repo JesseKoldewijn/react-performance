@@ -10,10 +10,7 @@ interface PostListProps {
 export function PostList({ posts, onDeletePost }: PostListProps) {
   if (posts.length === 0) {
     return (
-      <EmptyState
-        title="No posts yet"
-        description="Create your first post using the form above."
-      />
+      <EmptyState title="No posts yet" description="Create your first post using the form above." />
     );
   }
 
@@ -24,7 +21,7 @@ export function PostList({ posts, onDeletePost }: PostListProps) {
       </h2>
       <div className="space-y-3">
         {posts.map((post) => (
-          <PostItem key={post.id} post={post} onDelete={onDeletePost} />
+          <PostItem key={post.id + post.title} post={post} onDelete={onDeletePost} />
         ))}
       </div>
     </div>

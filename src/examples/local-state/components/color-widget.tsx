@@ -1,14 +1,20 @@
 import { Card } from '$components/card';
 import { Input } from '$components/input';
 import { Button } from '$components/button';
+import { useCallback, useState } from 'react';
 
-// WRONG: Receiving state and setter as props
-interface ColorWidgetWrongProps {
-  color: string;
-  onColorChange: (color: string) => void;
-}
+const useColor = (initialValue = '#3b82f6') => {
+  const [color, setColor] = useState(initialValue);
 
-export function ColorWidgetWrong({ color, onColorChange }: ColorWidgetWrongProps) {
+  const onSetColor = useCallback((newColor: string) => setColor(newColor), []);
+  const onReset = useCallback(() => setColor(initialValue), [initialValue]);
+
+  return { color, onSetColor, onReset };
+};
+
+export function ColorWidgetWrong() {
+  const { color, onSetColor, onReset } = useColor('#3b82f6');
+
   console.log('ColorWidget rendered');
 
   const presetColors = [
@@ -39,7 +45,7 @@ export function ColorWidgetWrong({ color, onColorChange }: ColorWidgetWrongProps
           type="color"
           label="Choose color"
           value={color}
-          onChange={(e) => onColorChange(e.target.value)}
+          onChange={(e) => onSetColor(e.target.value)}
         />
 
         <div>
@@ -52,14 +58,14 @@ export function ColorWidgetWrong({ color, onColorChange }: ColorWidgetWrongProps
                 key={presetColor}
                 className="h-8 w-8 rounded border-2 border-slate-200 transition-transform hover:scale-110 dark:border-slate-700"
                 style={{ backgroundColor: presetColor }}
-                onClick={() => onColorChange(presetColor)}
+                onClick={() => onSetColor(presetColor)}
                 aria-label={`Select ${presetColor}`}
               />
             ))}
           </div>
         </div>
 
-        <Button onClick={() => onColorChange('#3b82f6')} variant="secondary" size="small">
+        <Button onClick={onReset} variant="secondary" size="small">
           Reset to Blue
         </Button>
       </div>

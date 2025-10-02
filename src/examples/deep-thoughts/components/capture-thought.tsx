@@ -1,5 +1,6 @@
 import { Button } from '$/common/components/button';
 import { Input } from '$/common/components/input';
+import { useState } from 'react';
 
 type CaptureThoughtProps = {
   onSubmit: (content: string) => void;
